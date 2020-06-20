@@ -76,7 +76,7 @@ module = [
 setup(
     name='python-pcl-ndt',
     description='Python bindings for the Point Cloud Library\'s Normal Distributions Transform. using Cython.',
-    version='0.1',
+    version='0.2',
     author='Oleg Nurtdinov',
     author_email='j@jumper.cc',
     license='BSD',

@@ -1,11 +1,11 @@
 # distutils: language=c++
 # cython: language_level=3
 
-from eigen cimport Vector3d
+from libcpp.vector cimport vector
 from pcl cimport PointCloud_t, ShPtr_PointCloud_t, NDTSettings
 
 cdef extern from "ndt.h":
-    cdef Vector3d get_transformation_vector(ShPtr_PointCloud_t target_cloud, ShPtr_PointCloud_t input_cloud, NDTSettings settings)
+    cdef vector[double] get_transformation_vector(ShPtr_PointCloud_t target_cloud, ShPtr_PointCloud_t input_cloud, NDTSettings settings)
 
 def get_transformation_vector_wrapper(
     target_cloud_raw,
@@ -47,5 +47,5 @@ def get_transformation_vector_wrapper(
     settings.guess_y = guess_y
     settings.guess_theta = guess_theta
 
-    cdef Vector3d s = get_transformation_vector(target_cloud.makeShared(), input_cloud.makeShared(), settings)
-    return [s.data()[0], s.data()[1], s.data()[2]]
+    cdef vector[double] s = get_transformation_vector(target_cloud.makeShared(), input_cloud.makeShared(), settings)
+    return [s.data()[0], s.data()[1], s.data()[2], s.data()[3], s.data()[4]]
