@@ -19,7 +19,7 @@ def pkgconfig(flag):
     return stdout.decode().split()
 
 
-PCL_SUPPORTED = ["-1.8", ""]  # in order of preference
+PCL_SUPPORTED = ["-1.8", "-1.10", ""]  # in order of preference
 
 for pcl_version in PCL_SUPPORTED:
     if subprocess.call(['pkg-config', 'pcl_common%s' % pcl_version]) == 0:
@@ -48,7 +48,7 @@ for flag in pkgconfig('--cflags-only-other'):
     else:
         ext_args['extra_compile_args'].append(flag)
 
-ext_args['extra_compile_args'].append("-std=c++11")
+ext_args['extra_compile_args'].append("-std=c++14")
 ext_args['library_dirs'].append("/usr/lib/x86_64-linux-gnu/")
 
 for flag in pkgconfig('--libs-only-l'):
